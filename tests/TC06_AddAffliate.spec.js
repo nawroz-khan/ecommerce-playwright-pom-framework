@@ -13,11 +13,7 @@ test('TC06_AddAffiliate', async ({ page }) => {
   await home.clickLogin();
 
   await login.login('sid@cloudberry.services', 'Test123');
-
-  if (!(await affiliate.affiliateHeading.isVisible())) {
-    await home.openMyAccount();
-    await page.getByRole('link', { name: 'My Account', exact: true }).click();
-  }
+  await page.goto('https://www.cloudberrystore.services/index.php?route=account/account&language=en-gb');
 
   // This account is already an affiliate. OpenCart shows that section on the
   // account page and does not offer a blank registration form.
