@@ -21,9 +21,6 @@ class AffiliatePage {
 
   async openFromFooter() {
     await this.affiliateFooterLink.click();
-    if (await this.editAffiliateLink.isVisible()) {
-      await this.editAffiliateLink.click();
-    }
   }
 
   async fillAffiliateForm({ company, website, taxId, payeeName }) {

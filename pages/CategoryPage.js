@@ -7,7 +7,7 @@ class CategoryPage {
   }
 
   async openProductByName(productName) {
-    await this.page.getByRole('link', { name: productName, exact: true }).first().click();
+    await this.page.getByText(productName, { exact: true }).click();
   }
 }
 
