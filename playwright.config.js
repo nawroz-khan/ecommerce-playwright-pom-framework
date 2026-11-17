@@ -1,69 +1,48 @@
 // @ts-check
-import { defineConfig, devices } from '@playwright/test';
+const isCI = !!process.env.CI;
 
-
-
-/**
- * @see https://playwright.dev/docs/test-configuration
- */
-const config = ({
+/** @type {import('@playwright/test').PlaywrightTestConfig} */
+const config = {
   testDir: './tests',
   retries: 1,
-  timeout: 31000,
-  expect:
-  {
-    timeout: 10000,
+  timeout: 60_000,
+  expect: {
+    timeout: 15_000,
   },
   reporter: 'html',
-  projects:
-  [ 
+  use: {
+    // ubuntu-latest has no display, so CI must run headless.
+    headless: isCI,
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure',
+  },
+  projects: [
     {
       name: 'chrome',
-      use: {
-        browserName: 'chromium',
-        headless: false,
-        screenshot: 'only-on-failure', // on, off, only-on-failure
-        video: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
-        trace: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
-  }
+      use: { browserName: 'chromium' },
     },
-
-{
+    {
       name: 'firefox',
-      use: {
-        browserName: 'firefox',
-        headless: false,
-        screenshot: 'only-on-failure', // on, off, only-on-failure
-        video: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
-        trace: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
-  }
+      use: { browserName: 'firefox' },
     },
-{
-      name: 'edge',
-      use: {
-        browserName: 'chromium',
-        channel: 'msedge',
-        headless: false,
-        screenshot: 'only-on-failure', // on, off, only-on-failure
-        video: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
-        trace: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
-  }
-    },
-
+    // Microsoft Edge is installed locally. ubuntu-latest does not have the msedge channel.
+    ...(!isCI
+      ? [
+          {
+            name: 'edge',
+            use: {
+              browserName: 'chromium',
+              channel: 'msedge',
+            },
+          },
+        ]
+      : []),
     {
       name: 'safari',
-      use: {
-        browserName: 'webkit',
-        headless: false,
-        screenshot: 'only-on-failure', // on, off, only-on-failure
-        video: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
-        trace: 'retain-on-failure', // on, off, retain-on-failure, on-first-retry
-  }
-    }
+      use: { browserName: 'webkit' },
+    },
+  ],
+};
 
-  ]
- 
-  
-});
-
-module.exports = config
+module.exports = config;

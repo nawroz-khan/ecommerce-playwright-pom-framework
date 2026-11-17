@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const { HomePage } = require('../pages/HomePage');
 const { CategoryPage } = require('../pages/CategoryPage');
 const { ProductPage } = require('../pages/ProductPage');
-const { CheckoutPage } = require('../pages/CheckoutPage');
+const { CheckoutPage } = require('../pages/CheckOutPage');
 const { LoginPage } = require('../pages/LoginPage');
 
 test('@sanity @regression TC04_CompletePurchase', async ({ page }) => {

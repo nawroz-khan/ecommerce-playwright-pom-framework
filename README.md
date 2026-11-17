@@ -1,5 +1,7 @@
 # 🛒 Ecommerce Playwright POM Automation Framework
 
+![Playwright E2E Pipeline](https://github.com/nawroz-khan/ecommerce-playwright-pom-framework/actions/workflows/playwright.yml/badge.svg)
+
 ## 📌 Project Overview
 
 This project is an **End-to-End UI automation framework** built using **Playwright with JavaScript** following the **Page Object Model (POM)** design pattern.
