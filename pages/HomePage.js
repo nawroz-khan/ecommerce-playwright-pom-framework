@@ -29,9 +29,9 @@ class HomePage {
   }
 
   async openAllLaptopsAndNotebooks() {
-    //await this.laptopsAndNotebooksMenu.hover();
+    // The top-level category link goes to the same listing as "Show All".
+    // The submenu item is hidden until hover and times out in headless WebKit.
     await this.laptopsAndNotebooksMenu.click();
-    await this.showAllLaptopsAndNotebooks.click();
   }
 
   async goToCheckout() {

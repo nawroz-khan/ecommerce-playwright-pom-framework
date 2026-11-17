@@ -45,4 +45,9 @@ const config = {
   ],
 };
 
+// One worker on CI so the shared store login is not invalidated by parallel browsers.
+if (isCI) {
+  config.workers = 1;
+}
+
 module.exports = config;
