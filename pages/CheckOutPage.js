@@ -26,14 +26,26 @@ class CheckoutPage {
     await this.shippingAddressSelect.selectOption({ index });
   }
 
+  async chooseFirstMethod(modalSelector, openButton) {
+    await openButton.click();
+    const modal = this.page.locator(modalSelector);
+    await modal.waitFor({ state: 'visible' });
+
+    const method = modal.locator('input[type="radio"]').first();
+    if (await method.count()) {
+      await method.check();
+    }
+
+    await modal.getByRole('button', { name: 'Continue' }).click();
+    await modal.waitFor({ state: 'hidden' });
+  }
+
   async continueShipping() {
-    await this.shippingMethodsButton.click();
-    await this.continueButton.click();
+    await this.chooseFirstMethod('#modal-shipping', this.shippingMethodsButton);
   }
 
   async continuePayment() {
-    await this.paymentMethodsButton.click();
-    await this.continueButton.click();
+    await this.chooseFirstMethod('#modal-payment', this.paymentMethodsButton);
   }
 
   async confirmOrder() {

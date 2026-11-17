@@ -7,7 +7,7 @@ class CategoryPage {
   }
 
   async openProductByName(productName) {
-    await this.page.getByText(productName, { exact: true }).click();
+    await this.page.locator('#product-list').getByText(productName, { exact: true }).click();
   }
 }
 
